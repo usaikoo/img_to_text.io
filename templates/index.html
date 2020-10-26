@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no">
+    <link href="../static/sticky_footer.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"> -->
+      
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>U SAI - IMAGE TO TEXT</title>
+  </head>
+  <body style="background-color: #ADAFAE;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">IMG TO TEXT</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!-- <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li> -->
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Github</button>
+        </form>
+      </div>
+    </nav>
+
+    <main role="main" class="container">
+      <div class="container py-5">
+
+        <!-- For demo purpose -->
+        <header class="text-white text-center">
+          <h1 class="display-6">Upload Image to Generate</h1>
+
+          <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1564991372/image_pxlho1.svg" alt="" width="150" class="mb-4"> -->
+        </header>
+
+
+        <div class="row py-4">
+          <div class="col-lg-6 mx-auto">
+
+            <form action="/" method=post enctype=multipart/form-data>
+              <!-- Upload image input-->
+              <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white
+                shadow-sm">
+                <input id="upload" name="file" type="file"
+                  onchange="readURL(this);" class="form-control border-0">
+                <!-- <label id="upload-label" for="upload" class="font-weight-light
+                  text-muted">Choose file</label> -->
+                <div class="input-group-append">
+                  <label for="upload" class="btn btn-light m-0 rounded-pill
+                    px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small
+                      class="text-uppercase font-weight-bold text-muted">Choose
+                      file</small></label>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                  <button type="submit" class="btn btn-primary"
+                    data-toggle="button" aria-pressed="false"
+                    autocomplete="off">
+                    Generate
+                  </button>
+                </div>
+                <div class="col-4"></div>
+
+              </div>
+
+            </form>
+
+            <!-- Uploaded image area-->
+            <p class="font-italic text-white text-center">The image uploaded
+              will be rendered inside the box below.</p> <div class="image-area
+              mt-4">
+              <img id="imageResult" src="#" alt="" width="400" class="img-fluid
+                rounded shadow-sm mx-auto d-block">
+            </div>
+            <div>
+              <div class="form-group">
+                <label class="text-white" for="copyMe">Generated Result Text</label>
+                <textarea value="{{ text }}" id="copyMe" class="form-control"
+                  rows="3">{{ text }}</textarea>
+              </div>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                  <button class="btn btn-primary" data-toggle="button"
+                    aria-pressed="false" autocomplete="off"
+                    onclick="copyMyText()">Copy txt </button>
+                </div>
+                <div class="col-4"></div>
+
+              </div>
+
+              <div class="form-group">
+                <label class="text-white" for="copyMe">You Can Paste Text here</label>
+                <textarea value="{{ text }}" id="copyMe" class="form-control"
+                  rows="3"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Copyright <span id="date"></span> by <a href="https://github.com/usaikoo">U Sai Ko</a></span>
+      </div>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    -->
+
+    <script>
+
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(function () {
+    $('#upload').on('change', function () {
+        readURL(input);
+    });
+});
+
+/*  ==========================================
+    SHOW UPLOADED IMAGE NAME
+* ========================================== */
+var input = document.getElementById( 'upload' );
+var infoArea = document.getElementById( 'upload-label' );
+
+input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  var input = event.srcElement;
+  var fileName = input.files[0].name;
+  infoArea.textContent = 'File name: ' + fileName;
+}
+        var d = new Date();
+        var year = d.getFullYear();
+        document.getElementById("date").innerHTML = year;
+
+
+    function copyMyText() {
+     //select the element with the id "copyMe", must be a text box
+     var textToCopy = document.getElementById("copyMe");
+     //select the text in the text box
+     textToCopy.select();
+     //copy the text to the clipboard
+     document.execCommand("copy");
+}
+  </script>
+  </body>
+</html>
