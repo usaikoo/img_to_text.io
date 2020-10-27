@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/usr/local/bin/python3",
+    "python.pythonPath": "/Users/saiko/python_app/ImgToText/foldername/bin/python3",
     "python.formatting.provider": "black"
 }
