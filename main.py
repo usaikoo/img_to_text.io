@@ -39,7 +39,7 @@ def index():
             # file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             imagefile = request.files.get('file', '') 
             # uploadimg = imagefile
-            img = Image.open(imagefile)
+            img = Image.open('images/hi.png')
             text = tess.image_to_string(img)
             f = open("sample.txt", "a")
             f.truncate(0)
