@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+{% block head %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no">
+    <link href="../static/sticky_footer.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"> -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>{% block title %}{% endblock %} - U SAI IMG to TEXT</title>
+</head>
+{% endblock %}
+
+<body style="background-color: #ADAFAE;">
+    {% include 'layouts/header.html' %}
+
+    {% block content %}{% endblock %}
+
+    {% include 'layouts/footer.html' %}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imageResult')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(function () {
+            $('#upload').on('change', function () {
+                readURL(input);
+            });
+        });
+
+        /*  ==========================================
+            SHOW UPLOADED IMAGE NAME
+        * ========================================== */
+        var input = document.getElementById('upload');
+        var infoArea = document.getElementById('upload-label');
+
+        input.addEventListener('change', showFileName);
+        function showFileName(event) {
+            var input = event.srcElement;
+            var fileName = input.files[0].name;
+            infoArea.textContent = 'File name: ' + fileName;
+        }
+        var d = new Date();
+        var year = d.getFullYear();
+        document.getElementById("date").innerHTML = year;
+
+
+        function copyMyText() {
+            //select the element with the id "copyMe", must be a text box
+            var textToCopy = document.getElementById("copyMe");
+            //select the text in the text box
+            textToCopy.select();
+            //copy the text to the clipboard
+            document.execCommand("copy");
+        }
+    </script>
+</body>
+
+</html>
