@@ -41,6 +41,10 @@ def index():
             # uploadimg = imagefile
             img = Image.open(imagefile)
             text = tess.image_to_string(img)
+            f = open("sample.txt", "a")
+            f.truncate(0)
+            f.write(text)
+            f.close()
             # if text != None :
             #     os.remove(uploadimg)
             
