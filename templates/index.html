@@ -2,6 +2,15 @@
 {% block title %} Home {% endblock %}
 {% block content %}
 
+{% if error%}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>!</strong> {{ error }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
 <main role="main" class="container">
   <div class="container py-5">
 
@@ -12,7 +21,7 @@
     <div class="row py-4">
       <div class="col-lg-6 mx-auto">
 
-        <form action="/" method=post enctype=multipart/form-data>
+        <form >
           <!-- Upload image input-->
           <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white
             shadow-sm">
@@ -28,7 +37,7 @@
           <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
-              <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+              <button type="button" id="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false"
                 autocomplete="off">
                 Generate
               </button>
@@ -50,7 +59,7 @@
         <div>
           <div class="form-group">
             <label class="text-white" for="copyMe">Generated Result Text</label>
-            <textarea value="{{ text }}" id="copyMe" class="form-control" rows="3">{{ text }}</textarea>
+            <textarea value="{{ text }}"  id="copyMe" class="  form-control" rows="3">{{ text }}</textarea>
           </div>
           <div class="row">
             <div class="col-4"></div>
@@ -72,4 +81,32 @@
     </div>
   </div>
 </main>
+<script>
+
+ var formData = new FormData();
+   
+   $(document).on('click', '#submit', function(e) {
+     formData.append('file',  $('#upload')[0].files[0])
+     formData.append('action', '/')
+     formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+       $.ajax({
+           type: 'POST',
+           url: '/',
+           data: formData,
+           cache: false,
+           processData: false,
+           contentType: false,
+           enctype: 'multipart/form-data',
+           success: function (response){
+            document.close();
+            document.write(response);
+           },
+           error: function(xhr, errmsg, err) {
+               console.log(xhr.status + ":" + xhr.responseText)
+           }
+       }) 
+      
+   })
+
+</script>
 {% endblock %}

@@ -2,19 +2,18 @@ from flask import Flask, render_template,request,redirect, url_for,flash
 import pytesseract as tess
 from PIL import Image
 import os
+from flask import jsonify
 
 from werkzeug.utils import secure_filename
-UPLOAD_FOLDER = "images"
+# UPLOAD_FOLDER = "images"
 
 
 ALLOWED_EXTENSIONS = set(["txt", "pdf", "png", "jpg", "jpeg", "gif"])
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+# app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 app.secret_key = 'secrectkey'
-
-
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -36,19 +35,21 @@ def index():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            # imagefile = request.files.get('file', '') 
-            uploadimg = (os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            img = Image.open(uploadimg)
+            # file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            imagefile = request.files.get('file', '') 
+            # uploadimg = (os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            img = Image.open(imagefile)
             text = tess.image_to_string(img)
             f = open("sample.txt", "a")
             f.truncate(0)
             f.write(text)
             f.close()
-            if text != None :
-                os.remove(uploadimg)
-            
+            # if text != None :
+            #     os.remove(uploadimg)
             return render_template("index.html",text=text)
+        else:
+            return render_template("index.html",error='Something Went Wrong')
+
     else:
         return render_template("index.html")
 
